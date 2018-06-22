@@ -1,64 +1,41 @@
 <template>
-  <section class="container">
-    <div>
-      <app-logo/>
-      <h1 class="title">
-        my-profile
-      </h1>
-      <h2 class="subtitle">
-        Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
-    </div>
-  </section>
+  <div class="container">
+    <ul class="line-number">
+      <li v-for="n in 20" :key="n">{{n+122}}</li>
+    </ul>
+    <Logo></Logo>
+  </div>
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
+import Logo from "@/components/Logo/Logo";
 
 export default {
   components: {
-    AppLogo
+    Logo
   }
-}
+};
 </script>
 
-<style>
+<style lang="scss">
 .container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+  .line-number {
+    font-family: "Nanum Gothic", sans-serif;
+    font-weight: 500;
+    list-style-type: none;
+    li {
+      color: #474747;
+      line-height: 1;
+      padding-top: 1vw;
+      padding-bottom: 1vw;
+      font-size: 1.5vw;
+    }
+  }
+  .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>
