@@ -18,6 +18,5 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    'vue/require-v-for-keys': 'off'
   }
 }
