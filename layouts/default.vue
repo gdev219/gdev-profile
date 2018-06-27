@@ -1,18 +1,13 @@
 <template>
 <div class="wrapper" :style="{height: windowHeight-40+'px'}">
-  <main class="main-content">
-    <section class="content-wrapper">
+  <main class="content">
+    <section class="content-section">
       <ul class="line-number">
         <li v-for="n in 20" :key="n">{{n+122}}</li>
       </ul>
       <section class="snap-section" v-bind:class="{open: flagMenu}">
-        <div class="snap-header">
-
-        </div>
-        <ul class="snap-menu">
-          <!-- get menu info.. ajax -->
-          <li>소개</li> 
-        </ul>
+        <div class="snap-header"></div>
+        <SnapMenu v-if="flagMenu"></SnapMenu>
       </section>
       <section class="main-section">
         <div class="main-header">
@@ -24,7 +19,9 @@
             <span>ENGLISH</span>      
           </div>
         </div>
-        <nuxt/>
+        <div class="main-content">
+          <nuxt/>
+        </div>
       </section>
     </section>
   </main>
@@ -32,13 +29,16 @@
 </template>
 
 <script>
+import SnapMenu from "@/components/Menu/SnapMenu";
 export default {
-  props: ["section"],
+  components:{
+    SnapMenu
+  },
   data() {
     return {
       windowHeight: 0,
       flagMenu: false,
-      selectedLang: 'kor'
+      selectedLang: "kor"
     };
   },
   mounted() {
@@ -54,6 +54,9 @@ export default {
     openMenu(e) {
       this.flagMenu = !this.flagMenu;
       console.log(this.flagMenu);
+    },
+    closeMenu(e){
+      this.flagMenu = false;
     }
   }
 };
@@ -74,6 +77,18 @@ ul {
   margin: 0;
   list-style: none;
 }
+a {
+  text-decoration: none;
+  &:visited{
+    color: inherit;
+  }
+  &:hover {
+      color: inherit;   
+    }
+    &:active {
+      color: inherit;
+    }
+}
 $max-width: 1500px;
 
 .wrapper {
@@ -88,13 +103,13 @@ $max-width: 1500px;
 $aspect-ratio: 5/9;
 $ratio-percent: $aspect-ratio * 100%;
 $background-color: #1e1e1e;
-.main-content {
+.content {
   background-color: $background-color;
   position: relative;
   margin: auto;
   width: 100%;
   padding-top: $ratio-percent;
-  .content-wrapper {
+  .content-section {
     position: absolute;
     top: 0;
     left: 0;
@@ -128,15 +143,8 @@ $background-color: #1e1e1e;
       -o-transition: 300ms ease all;
       transition: 300ms ease all;
       margin-left: -20%;
-      .snap-header{
+      .snap-header {
         background-color: $background-color;
-      }
-      .snap-menu {
-        li {
-          background-color: #383838;
-          color: #c7cccc;
-          font-weight: normal;
-        }
       }
     }
     .open {
@@ -147,7 +155,7 @@ $background-color: #1e1e1e;
       width: 80%;
       position: relative;
       height: 100%;
-      .main-header{
+      .main-header {
         z-index: 999;
         .btn-menu {
           // border: 1px solid #bfbfbf;
@@ -164,10 +172,13 @@ $background-color: #1e1e1e;
             }
           }
         }
-        .btn-lang{
+        .btn-lang {
           float: right;
         }
-    }
+      }
+      .main-content{
+        
+      }
     }
   }
 }
@@ -187,16 +198,21 @@ $background-color: #1e1e1e;
       font-size: 52.5px;
     }
   }
-  .btn-lang{
+  .btn-lang {
     padding: 24px;
     font-size: 18px;
   }
-  .snap-section{
-    .snap-header{
+  .snap-section {
+    .snap-header {
       height: 100px;
     }
-    .snap-menu{
-      padding: 15px;
+  }
+  .main-section {
+    .main-header{
+      height: 100px;
+    }
+    .main-content{
+      height: 1500 * $aspect-ratio - 100+px;
     }
   }
 }
@@ -216,16 +232,21 @@ $background-color: #1e1e1e;
       font-size: 3.5vw;
     }
   }
-  .btn-lang{
+  .btn-lang {
     padding: 1.6vw;
     font-size: 1.5vw;
   }
-  .snap-section{
-    .snap-header{
+  .snap-section {
+    .snap-header {
       height: 6.66vw;
     }
-    .snap-menu{
-      padding: 1vw;
+  }
+  .main-section {
+    .main-header{
+      height: 6.66vw;
+    }
+    .main-content{
+      height: 100vw * $aspect-ratio - 6.66vw;
     }
   }
 }
