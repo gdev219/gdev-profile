@@ -1,10 +1,9 @@
 <template>
-
     <ul class="snap-menu">
         <!-- get menu info.. ajax -->
         <li v-for="route in routes" :key="route.name">
             <p class="parent-list" v-on:click="route.flag = !route.flag">
-                <i class="fas fa-caret-down rotate" v-bind:class="{down: !route.flag}"></i><span>{{route.name}}</span>
+                <i class="fas fa-caret-down rotate" v-bind:class="{down: !route.flag}"></i><span>{{route.name.toUpperCase()}}</span>
             </p>
             <ul class="child-list" v-if="route.flag">
                 <nuxt-link tag="li" v-for="childrenRoute in route.children" :key="childrenRoute.name" :to="childrenRoute.path">
@@ -81,7 +80,6 @@ p {
 }
 .snap-menu {
   background-color: #383838;
-  font-size: 1.2vw;
   .parent-list {
     color: #c7cccc;
     font-weight: normal;
@@ -96,6 +94,7 @@ p {
 }
 @media screen and (min-width: 1500px) {
   .snap-menu {
+    font-size: 18px;
     .parent-list {
       padding: 15px;
       span{
@@ -112,6 +111,7 @@ p {
 }
 @media screen and (max-width: 1500px) {
   .snap-menu {
+    font-size: 1.2vw;
     .parent-list {
       padding: 1vw;
       span{

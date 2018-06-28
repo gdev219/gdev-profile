@@ -6,7 +6,7 @@
         <li v-for="n in 20" :key="n">{{n+122}}</li>
       </ul>
       <section class="snap-section" v-bind:class="{open: flagMenu}">
-        <div class="snap-header"></div>
+        <SnapLogo></SnapLogo>
         <SnapMenu v-if="flagMenu"></SnapMenu>
       </section>
       <section class="main-section">
@@ -30,9 +30,11 @@
 
 <script>
 import SnapMenu from "@/components/Menu/SnapMenu";
+import SnapLogo from "@/components/Logo/SnapLogo";
 export default {
   components:{
-    SnapMenu
+    SnapMenu,
+    SnapLogo
   },
   data() {
     return {
@@ -71,6 +73,9 @@ body {
   font-family: "Ubuntu", "Nanum Gothic", sans-serif;
   margin: 0;
   height: 100%;
+}
+p {
+  padding : 0;
 }
 ul {
   padding: 0;
@@ -143,9 +148,6 @@ $background-color: #1e1e1e;
       -o-transition: 300ms ease all;
       transition: 300ms ease all;
       margin-left: -20%;
-      .snap-header {
-        background-color: $background-color;
-      }
     }
     .open {
       margin-left: 0;
@@ -203,9 +205,6 @@ $background-color: #1e1e1e;
     font-size: 18px;
   }
   .snap-section {
-    .snap-header {
-      height: 100px;
-    }
   }
   .main-section {
     .main-header{
@@ -237,9 +236,6 @@ $background-color: #1e1e1e;
     font-size: 1.5vw;
   }
   .snap-section {
-    .snap-header {
-      height: 6.66vw;
-    }
   }
   .main-section {
     .main-header{
