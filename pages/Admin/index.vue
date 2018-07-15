@@ -1,7 +1,5 @@
 <template>
-    <ul>
-        <li></li>
-    </ul>
+    <section></section>
 </template>
 <script>
 export default {

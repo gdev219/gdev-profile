@@ -26,15 +26,17 @@ export default {
   },
   created() {
     // console.log("created");
+    console.log(this.$router.options.routes);
     this.$router.options.routes.forEach(route => {
-      if (route.path != "/" && route.path.match(/[\/]/g).length == 1)
-        //exclude root path and children
+      if (route.path != "/" && route.path.match(/[\/]/g).length == 1){
+        console.log("이름:"+route.name);
         this.routes.push({
           name: route.name,
           path: route.path,
           flag: true,
           children: []
         });
+      }//exclude root path and children
       if (route.path.match(/[\/]/g).length > 1) {
         for (var i = 0; i < this.routes.length; i++) {
           if (this.routes[i].name == route.name.split("-")[0]) {
@@ -86,6 +88,7 @@ p {
     // border-bottom: 1px solid #252526;
   }
   .child-list{
+      color: #cccccc;
       background-color: #252526;
   }
   &:hover {

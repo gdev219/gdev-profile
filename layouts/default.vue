@@ -1,28 +1,28 @@
 <template>
 <div class="wrapper" :style="{height: windowHeight-40+'px'}">
   <main class="content">
-    <section class="content-section">
+    <section class="content-section" v-bind:class="{move: flagMenu}">
       <ul class="line-number">
         <li v-for="n in 20" :key="n">{{n+122}}</li>
       </ul>
-      <section class="snap-section" v-bind:class="{open: flagMenu}">
-        <SnapLogo></SnapLogo>
-        <SnapMenu v-if="flagMenu"></SnapMenu>
+      <section class="main-header">
+        <div class="btn-menu" v-on:click="openMenu">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div class="btn-lang">
+          <span v-bind:class="{}">한글</span>      
+          <span>ENGLISH</span>      
+        </div>
       </section>
       <section class="main-section">
-        <div class="main-header">
-          <div class="btn-menu" v-on:click="openMenu">
-            <i class="fas fa-bars"></i>
-          </div>
-          <div class="btn-lang">
-            <span v-bind:class="{}">한글</span>      
-            <span>ENGLISH</span>      
-          </div>
-        </div>
         <div class="main-content">
           <nuxt/>
         </div>
       </section>
+    </section>
+    <section class="snap-section" v-bind:class="{open: flagMenu}">
+      <SnapLogo></SnapLogo>
+      <SnapMenu v-if="flagMenu"></SnapMenu>
     </section>
   </main>
 </div>
@@ -32,7 +32,7 @@
 import SnapMenu from "@/components/Menu/SnapMenu";
 import SnapLogo from "@/components/Logo/SnapLogo";
 export default {
-  components:{
+  components: {
     SnapMenu,
     SnapLogo
   },
@@ -57,7 +57,7 @@ export default {
       this.flagMenu = !this.flagMenu;
       console.log(this.flagMenu);
     },
-    closeMenu(e){
+    closeMenu(e) {
       this.flagMenu = false;
     }
   }
@@ -75,7 +75,7 @@ body {
   height: 100%;
 }
 p {
-  padding : 0;
+  padding: 0;
 }
 ul {
   padding: 0;
@@ -84,15 +84,15 @@ ul {
 }
 a {
   text-decoration: none;
-  &:visited{
+  &:visited {
     color: inherit;
   }
   &:hover {
-      color: inherit;   
-    }
-    &:active {
-      color: inherit;
-    }
+    color: inherit;
+  }
+  &:active {
+    color: inherit;
+  }
 }
 $max-width: 1500px;
 
@@ -114,15 +114,36 @@ $background-color: #1e1e1e;
   margin: auto;
   width: 100%;
   padding-top: $ratio-percent;
+  overflow: hidden;
+  .snap-section {
+    position: absolute;
+    top: 0;
+    background-color: #252526;
+    height: 100%;
+    width: 20%;
+    z-index: 999;
+    -webkit-transition: 300ms ease margin-left;
+    -moz-transition: 300ms ease margin-left;
+    -ms-transition: 300ms ease margin-left;
+    -o-transition: 300ms ease margin-left;
+    transition: 300ms ease margin-left;
+    margin-left: -20%;
+  }
   .content-section {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: inherit;
     height: 100%;
     overflow: hidden;
     color: white;
-    display: flex;
+    -webkit-transition: 300ms ease left;
+    -moz-transition: 300ms ease left;
+    -ms-transition: 300ms ease left;
+    -o-transition: 300ms ease left;
+    transition: 300ms ease left;
     .line-number {
       position: absolute;
       top: 0;
@@ -137,51 +158,52 @@ $background-color: #1e1e1e;
         line-height: 1;
       }
     }
-    .snap-section {
-      background-color: #252526;
-      height: 100%;
-      width: 20%;
+    .main-header {
+      max-width: $max-width;
+      width: calc(100% - 40px);
+      //40px for margin...
       z-index: 999;
-      -webkit-transition: 300ms ease all;
-      -moz-transition: 300ms ease all;
-      -ms-transition: 300ms ease all;
-      -o-transition: 300ms ease all;
-      transition: 300ms ease all;
-      margin-left: -20%;
-    }
-    .open {
-      margin-left: 0;
+      // background-color: $background-color;
+      position: fixed;
+      .btn-menu {
+        // border: 1px solid #bfbfbf;
+        display: inline-block;
+        left: 0;
+        background-color: $background-color;
+        .fa-bars {
+          color: #bfbfbf;
+        }
+        &:hover {
+          cursor: pointer;
+          // border: 1px solid #7a7a7a;
+          .fa-bars {
+            color: #7a7a7a;
+          }
+        }
+      }
+      .btn-lang {
+        float: right;
+      }
     }
     .main-section {
-      flex: 1;
-      width: 80%;
+      display: flex;
+      flex-direction: column;
       position: relative;
       height: 100%;
-      .main-header {
-        z-index: 999;
-        .btn-menu {
-          // border: 1px solid #bfbfbf;
-          display: inline-block;
-          background-color: $background-color;
-          .fa-bars {
-            color: #bfbfbf;
-          }
-          &:hover {
-            cursor: pointer;
-            // border: 1px solid #7a7a7a;
-            .fa-bars {
-              color: #7a7a7a;
-            }
-          }
+      .main-content {
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        .container {
         }
-        .btn-lang {
-          float: right;
-        }
-      }
-      .main-content{
-        
       }
     }
+  }
+  .move {
+    left: 20%;
+  }
+  .open {
+    margin-left: 0;
   }
 }
 
@@ -206,12 +228,13 @@ $background-color: #1e1e1e;
   }
   .snap-section {
   }
+  .main-header {
+    height: 100px;
+  }
   .main-section {
-    .main-header{
-      height: 100px;
-    }
-    .main-content{
-      height: 1500 * $aspect-ratio - 100+px;
+    margin-top: 100px;
+    margin-left: 100px;
+    .main-content {
     }
   }
 }
@@ -237,12 +260,13 @@ $background-color: #1e1e1e;
   }
   .snap-section {
   }
+  .main-header {
+    height: 6.66vw;
+  }
   .main-section {
-    .main-header{
-      height: 6.66vw;
-    }
-    .main-content{
-      height: 100vw * $aspect-ratio - 6.66vw;
+    margin-top: 6.66vw;
+    margin-left: 6.66vw;
+    .main-content {
     }
   }
 }

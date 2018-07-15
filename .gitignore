@@ -12,3 +12,6 @@ dist
 
 # Nuxt config
 nuxt.config.js
+
+# Firebase config
+firebaseInit.js

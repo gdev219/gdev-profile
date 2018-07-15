@@ -1,7 +1,8 @@
 <template>
     <nuxt-link tag="section" to="/" class="snap-logo">
         <div>
-            <p><span class="p1">Gdev219s' </span> <span class="p2">Private Archive</span></p>
+            <p><span class="p1">Gdev219s' </span> </p>
+            <p><span class="p2">Private Archive</span></p>
         </div>
     </nuxt-link>
 </template>
@@ -13,15 +14,16 @@ p {
   margin: 0;
 }
 .snap-logo {
+  color: white;
   overflow: hidden;
-  width : 100%;
+  width: 100%;
   display: table;
   font-weight: 600;
   div {
     display: table-cell;
     vertical-align: middle;
-    &:hover{
-        cursor: pointer;
+    &:hover {
+      cursor: pointer;
     }
   }
 }
@@ -48,7 +50,7 @@ p {
         font-size: 2.2vw;
       }
       .p2 {
-        font-size: .9vw;
+        font-size: 0.9vw;
       }
     }
   }
