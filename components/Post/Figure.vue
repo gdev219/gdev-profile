@@ -1,18 +1,20 @@
 <template>
-<figure
-  :style="{backgroundImage: 'url(' + thumbnailUrl + ')'}"
->
-    <!-- <div class="thumbnail"
+<nuxt-link :to="'/Work/Portfolio/Posts/'+title">
+  <figure
     :style="{backgroundImage: 'url(' + thumbnailUrl + ')'}"
-    ></div> -->
-    <figcaption>
-      <div class="caption-wrapper">
-        <h3>{{ title }}</h3>
-        <h5>{{ date.start.year+"."+date.start.month+" ~ "+date.end.year+"."+date.end.month }}</h5>
-        <!-- <h6>{{ comment }}</h6> -->
-      </div>
-    </figcaption>
-</figure>
+  >
+      <!-- <div class="thumbnail"
+      :style="{backgroundImage: 'url(' + thumbnailUrl + ')'}"
+      ></div> -->
+      <figcaption>
+        <div class="caption-wrapper">
+          <h3>{{ title }}</h3>
+          <h5>{{ date.start.year+"."+date.start.month+" ~ "+date.end.year+"."+date.end.month }}</h5>
+          <!-- <h6>{{ comment }}</h6> -->
+        </div>
+      </figcaption>
+  </figure>
+</nuxt-link>
 </template>
 <script>
 export default {

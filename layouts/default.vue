@@ -190,12 +190,11 @@ $background-color: #1e1e1e;
       flex-direction: column;
       position: relative;
       height: 100%;
+      // overflow-x: hidden;
+      // overflow-y: scroll;
       .main-content {
+        // padding: 2vw;
         height: 100%;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        .container {
-        }
       }
     }
   }
@@ -226,16 +225,12 @@ $background-color: #1e1e1e;
     padding: 24px;
     font-size: 18px;
   }
-  .snap-section {
-  }
   .main-header {
     height: 100px;
   }
   .main-section {
     margin-top: 100px;
     margin-left: 100px;
-    .main-content {
-    }
   }
 }
 
@@ -258,16 +253,12 @@ $background-color: #1e1e1e;
     padding: 1.6vw;
     font-size: 1.5vw;
   }
-  .snap-section {
-  }
   .main-header {
     height: 6.66vw;
   }
   .main-section {
     margin-top: 6.66vw;
     margin-left: 6.66vw;
-    .main-content {
-    }
   }
 }
 </style>
