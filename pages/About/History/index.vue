@@ -1,6 +1,6 @@
 <template>
     <section>
-      <ul>
+      <ul v-scroll="scrollEvent">
           <li v-for="(n, i) in (currentYear-birthYear+1)" :key="i">
             <span class="timeline-year" v-bind:class="{'on':yearIndex[i]}">{{birthYear+i}}</span>
             <div class="timeline-content">
@@ -27,12 +27,14 @@ export default {
     };
   },
   methods: {
-    matchYear() {
-      return {};
+    scrollEvent(e){
+      console.log(e);
     }
   },
   created() {
     var years = [];
+    //add scroll eventListener 
+    //get db from firebase
     db
       .collection("History")
       .get()
@@ -58,9 +60,11 @@ export default {
       });
   },
   updated() {
-    console.log(this.years);
-    console.log(this.yearIndex[0]);
-  }
+    // console.log(this.years);
+    // console.log(this.yearIndex[0]);
+  },
+  destroyed() {
+  },
 };
 </script>
 <style lang="scss" scoped>
