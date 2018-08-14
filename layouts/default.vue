@@ -9,14 +9,23 @@
         <div class="btn-menu" v-on:click="openMenu">
           <i class="fas fa-bars"></i>
         </div>
-        <div class="btn-lang">
+        <div class="btn-auth">
+          <span v-on:click="flagModal=true">로그인</span>
+          <nuxt-link tag="span" to="/Signup">회원가입</nuxt-link>    
+        </div>
+        <!-- <div class="btn-lang">
           <span v-bind:class="{}">한글</span>      
           <span>ENGLISH</span>      
-        </div>
+        </div> -->
       </section>
       <section class="main-section">
         <div class="main-content">
           <nuxt/>
+        </div>
+      </section>
+      <section class="modal-section" v-if="flagModal">
+        <div class="modal-wrapper" v-on:click.self="flagModal=false">
+          <login-modal v-bind:flag.sync="flagModal"></login-modal>
         </div>
       </section>
     </section>
@@ -24,6 +33,7 @@
       <SnapLogo></SnapLogo>
       <SnapMenu v-if="flagMenu"></SnapMenu>
     </section>
+
   </main>
 </div>
 </template>
@@ -31,15 +41,18 @@
 <script>
 import SnapMenu from "@/components/Menu/SnapMenu";
 import SnapLogo from "@/components/Logo/SnapLogo";
+import LoginModal from "@/components/Modal/LoginModal";
 export default {
   components: {
     SnapMenu,
-    SnapLogo
+    SnapLogo,
+    LoginModal
   },
   data() {
     return {
       windowHeight: 0,
       flagMenu: false,
+      flagModal: false,
       selectedLang: "kor"
     };
   },
@@ -84,6 +97,9 @@ ul {
 }
 a {
   text-decoration: none;
+  &:link {
+    color: inherit;
+  }
   &:visited {
     color: inherit;
   }
@@ -94,6 +110,16 @@ a {
     color: inherit;
   }
 }
+.button {
+  cursor: pointer;
+  display: inline-block;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
 $max-width: 1500px;
 
 .wrapper {
@@ -103,9 +129,10 @@ $max-width: 1500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
 }
 
-$aspect-ratio: 5/9;
+$aspect-ratio: 6/10;
 $ratio-percent: $aspect-ratio * 100%;
 $background-color: #1e1e1e;
 .content {
@@ -181,8 +208,11 @@ $background-color: #1e1e1e;
           }
         }
       }
-      .btn-lang {
+      .btn-auth {
         float: right;
+        span {
+          cursor: pointer;
+        }
       }
     }
     .main-section {
@@ -190,10 +220,23 @@ $background-color: #1e1e1e;
       flex-direction: column;
       position: relative;
       height: 100%;
-      // overflow-x: hidden;
-      // overflow-y: scroll;
+      overflow-x: hidden;
+      overflow-y: scroll;
       .main-content {
         // padding: 2vw;
+        height: 100%;
+      }
+    }
+    .modal-section {
+      position: absolute;
+      z-index: 9999;
+      vertical-align: middle;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      .modal-wrapper{
+        position: relative;
+        width: 100%;
         height: 100%;
       }
     }
@@ -221,9 +264,12 @@ $background-color: #1e1e1e;
       font-size: 52.5px;
     }
   }
-  .btn-lang {
+  .btn-auth {
     padding: 24px;
     font-size: 18px;
+    span {
+      margin-right: 18px;
+    }
   }
   .main-header {
     height: 100px;
@@ -249,7 +295,7 @@ $background-color: #1e1e1e;
       font-size: 3.5vw;
     }
   }
-  .btn-lang {
+  .btn-auth {
     padding: 1.6vw;
     font-size: 1.5vw;
   }
