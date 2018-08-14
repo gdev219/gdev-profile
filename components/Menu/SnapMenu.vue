@@ -30,7 +30,7 @@ export default {
 
     self.$router.options.routes.forEach(route => {
       if (route.path != "/" && route.path.match(/[\/]/g).length == 1) {
-        console.log("이름:" + route.name);
+        // console.log("이름:" + route.name);
         self.routes.push({
           name: route.name,
           path: route.path,

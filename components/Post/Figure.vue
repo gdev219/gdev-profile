@@ -1,5 +1,5 @@
 <template>
-<nuxt-link :to="'/Work/Portfolio/Posts/'+title">
+<nuxt-link :to="'/Work/Portfolio/'+title">
   <figure
     :style="{backgroundImage: 'url(' + thumbnailUrl + ')'}"
   >
