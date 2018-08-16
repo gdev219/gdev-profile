@@ -8,7 +8,6 @@ require('whatwg-fetch');
 
 const store = () => new Vuex.Store({
 
-
   state: {
     authUser: null
   },
