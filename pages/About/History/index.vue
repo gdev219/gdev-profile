@@ -1,6 +1,6 @@
 <template>
     <section>
-      <ul v-scroll="scrollEvent">
+      <ul>
           <li v-for="(n, i) in (currentYear-birthYear+1)" :key="i">
             <span class="timeline-year" v-bind:class="{'on':yearIndex[i]}">{{birthYear+i}}</span>
             <div class="timeline-content">
@@ -27,9 +27,6 @@ export default {
     };
   },
   methods: {
-    scrollEvent(e){
-      console.log(e);
-    }
   },
   created() {
     var years = [];
