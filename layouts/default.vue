@@ -48,6 +48,7 @@ export default {
     SnapLogo,
     LoginModal
   },
+
   data() {
     return {
       windowHeight: 0,
@@ -55,6 +56,15 @@ export default {
       flagModal: false,
       selectedLang: "kor"
     };
+  },
+  watch: {
+    $route() {
+      console.log("route changed", this.$route);
+      if(this.$route.name == "index"){
+        this.flagMenu = false;
+        this.flagModal = false;
+      }
+    }
   },
   mounted() {
     this.$nextTick(function() {
@@ -68,7 +78,6 @@ export default {
     },
     openMenu(e) {
       this.flagMenu = !this.flagMenu;
-      console.log(this.flagMenu);
     },
     closeMenu(e) {
       this.flagMenu = false;
@@ -234,7 +243,7 @@ $background-color: #1e1e1e;
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
-      .modal-wrapper{
+      .modal-wrapper {
         position: relative;
         width: 100%;
         height: 100%;
