@@ -27,21 +27,40 @@ export default {
   created() {
     // console.log("created");
     let self = this;
-
+    const execptionList = ["Signup", "Admin"];
     self.$router.options.routes.forEach(route => {
       if (route.path != "/" && route.path.match(/[\/]/g).length == 1) {
         // console.log("이름:" + route.name);
+        for (var i = 0; i < execptionList.length; i++) {
+          if (route.name === execptionList[i]) {
+          } else {
+          }
+        }
         self.routes.push({
           name: route.name,
           path: route.path,
           flag: true,
           children: []
         });
-      } //exclude root path and children
+      } //extract route path to self.routes.
+    });
+
+    for (var i = 0; i < self.routes.length; i++) {
+      for (var j = 0; j < execptionList.length; j++) {
+        if (self.routes[i]) {
+          if (self.routes[i].name == execptionList[j]) {
+            self.routes.splice(i, 1);
+          }
+        }
+      }
+    }// eliminates specific root routers
+
+
+    self.$router.options.routes.forEach(route => {
       if (route.path.match(/[\/]/g).length > 1) {
         for (var i = 0; i < self.routes.length; i++) {
           if (self.routes[i].name == route.name.split("-")[0]) {
-            if(route.name.split("-").length<3){
+            if (route.name.split("-").length < 3) {
               //exclude child's children
               self.routes[i].children.push({
                 name: route.name.split("-")[1],
@@ -52,12 +71,13 @@ export default {
         }
       }
     });
-    // order by alphabetical order with the first char
+    //adding child routes to the rightful root routes
     self.routes.sort((a, b) => {
       return a.name.charAt(0) < b.name.charAt(0)
         ? -1
         : a.name.charAt(0) > b.name.charAt(0) ? 1 : 0;
     });
+    // order by alphabetical order with the first char
   },
   mounted() {
     // console.log("mounted")
