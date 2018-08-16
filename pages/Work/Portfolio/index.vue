@@ -30,7 +30,6 @@
 <script>
 import { db } from "@/plugins/firebaseInit.js";
 import Figure from "@/components/Post/Figure";
-import _ from "lodash";
 export default {
   components: {
     Figure
