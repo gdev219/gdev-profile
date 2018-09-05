@@ -16,6 +16,7 @@
 <script>
 import { db } from "@/plugins/firebaseInit.js";
 export default {
+  middleware:'auth',
   components: {},
   data() {
     return {
@@ -26,11 +27,10 @@ export default {
       yearIndex: []
     };
   },
-  methods: {
-  },
+  methods: {},
   created() {
     var years = [];
-    //add scroll eventListener 
+    //add scroll eventListener
     //get db from firebase
     db
       .collection("History")
@@ -60,8 +60,7 @@ export default {
     // console.log(this.years);
     // console.log(this.yearIndex[0]);
   },
-  destroyed() {
-  },
+  destroyed() {}
 };
 </script>
 <style lang="scss" scoped>
@@ -86,9 +85,9 @@ ul {
         font-size: 0.8em;
       }
     }
-    .no-issue{
+    .no-issue {
       color: #585858;
-      .content-date{
+      .content-date {
         color: inherit;
       }
     }
