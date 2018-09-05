@@ -9,10 +9,10 @@
           <input class="login-input id" v-model="email" placeholder="이메일 아이디">
         </p>
         <p>
-          <input class="login-input pw" v-model="password" placeholder="비밀번호">
+          <input class="login-input pw" type="password" v-model="password" placeholder="비밀번호">
         </p>
         <p>
-          <button class="button btn-login">로그인</button>
+          <button class="button btn-login" v-on:click="login()">로그인</button>
         </p>
         <p class="last">
           <label class="button btn-signup"><nuxt-link to="/signup" v-on:click.native="closeModal()">회원가입</nuxt-link></label>
@@ -32,7 +32,7 @@ export default {
     return {
       closeFlag: this.flag,
       email: "",
-      password:""
+      password: ""
     };
   },
   methods: {
@@ -40,7 +40,38 @@ export default {
       this.closeFlag = false;
       //2way binding
       this.$emit("update:flag", this.closeFlag);
-    }
+    },
+     async login() {
+      try {
+        await this.$store.dispatch('login', {
+          email: this.email,
+          password: this.password
+        })
+        this.email = ''
+        this.password = ''
+        // this.formError = null
+        $nuxt.$router.push("/");
+        this.closeFlag = false;
+        this.$emit("update:flag", this.closeFlag);
+      } catch (e) {
+        // this.formError = e.message
+      }
+    },
+    // login: function() {
+    //   auth.signInWithEmailAndPassword(this.email, this.password).then((user)=>{
+    //     console.log(user);
+    //     $nuxt.$router.push("/");
+    //     //여기서 this.$router가 안먹히는 이유는 =>(arrow) function이 아니라..
+    //     this.closeFlag = false;
+    //     this.$emit("update:flag", this.closeFlag);
+    //   }).catch(function(error) {
+    //     // Handle Errors here.
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     // ...
+    //     alert(errorCode+":"+errorMessage);
+    //   });
+    // }
   }
 };
 </script>
@@ -75,7 +106,7 @@ export default {
         border: 0;
         padding: 0 1em 0 1em;
       }
-      .login-save-id{
+      .login-save-id {
         font-size: 14px;
         line-height: 14px;
         .login-save-checkbox {
@@ -86,7 +117,7 @@ export default {
         }
       }
     }
-    .last{
+    .last {
       padding-bottom: 0px;
       margin-bottom: 0px;
     }
@@ -98,7 +129,7 @@ export default {
     border: 0;
     padding: 0;
   }
-  .btn-signup{
+  .btn-signup {
     font-size: 0.8em;
     float: right;
   }
