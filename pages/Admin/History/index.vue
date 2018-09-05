@@ -24,6 +24,9 @@
         <input type="radio" id="pro" value="pro" v-model="history.type">
         <label for="pro">work(pro)</label>
         <br>
+        <input type="radio" id="alba" value="alba" v-model="history.type">
+        <label for="pro">work(alba)</label>
+        <br>
         <input type="radio" id="etc" value="etc" v-model="history.type">
         <label for="etc">etc</label>
         <br>
@@ -47,13 +50,15 @@ export default {
     };
   },
   methods: {
+    
     onSubmit: (data) => {
+      var docName = data.year + "-" + (data.month > 9? data.month: "0"+data.month.toString()) + "-" + data.day;
       db
         .collection("History")
-        .doc(data.year.toString()+data.month.toString()+data.day.toString())
+        .doc(docName)
         .set(data)
         .then(()=>{
-
+         alert(docName+"업로드 완료");   
         });
     }
   },
