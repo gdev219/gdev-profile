@@ -43,21 +43,25 @@
 							</p>
 						</li>
 						<li>
-							<span class="post-content-label">주요 기능</span>   
-							<ul class="post-content-pointlist">
-									<li v-for="(point,index) in postData.pointlist" v-bind:key="index">{{point}}</li>
-							</ul>
+							<span class="post-content-label">주요 기능</span>
+              <p>
+                <ul class="post-content-pointlist">
+                    <li v-for="(point,index) in postData.pointlist" v-bind:key="index">{{point}}</li>
+                </ul>
+              </p>   
 						</li>
 						<li>
-							<span class="post-content-label">기술</span>   
-							<ul class="post-content-techlist">
-								<li class="post-content-tech"
-                    v-for="(tech,index) in postData.techlist" 
-                    v-bind:key="index"
-                    v-bind:class="{'my-work':tech.duty}">
-                    {{tech.text}}
-                </li>
-							</ul>
+							<span class="post-content-label">기술</span>
+              <p>
+                <ul class="post-content-techlist">
+                  <li class="post-content-tech"
+                      v-for="(tech,index) in postData.techlist" 
+                      v-bind:key="index"
+                      v-bind:class="{'my-work':tech.duty}">
+                      {{tech.text}}
+                  </li>
+                </ul>
+              </p>   
 						</li>
 					</ul>	
 
