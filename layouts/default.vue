@@ -10,8 +10,13 @@
           <i class="fas fa-bars"></i>
         </div>
         <div class="btn-auth">
-          <span v-on:click="flagModal=true">로그인</span>
-          <nuxt-link tag="span" to="/Signup">회원가입</nuxt-link>    
+          <!-- <span>{{loginUser}}</span> -->
+          <span>{{$store.state.authUser}}</span>
+          <span class="button" v-if="!$store.state.isVerified && $store.state.authUser"
+          v-on:click="sendVerification()">(이메일 인증해주세요)</span>
+          <span class="button" v-on:click="flagModal=true" v-if="!$store.state.authUser">로그인</span>
+          <span class="button" v-else v-on:click="logout()">로그아웃</span>
+          <nuxt-link tag="span" to="/Signup" class="button" v-if="!$store.state.authUser">회원가입</nuxt-link>    
         </div>
         <!-- <div class="btn-lang">
           <span v-bind:class="{}">한글</span>      
@@ -42,6 +47,7 @@
 import SnapMenu from "@/components/Menu/SnapMenu";
 import SnapLogo from "@/components/Logo/SnapLogo";
 import LoginModal from "@/components/Modal/LoginModal";
+import { auth } from "@/plugins/firebaseInit.js";
 export default {
   components: {
     SnapMenu,
@@ -54,13 +60,13 @@ export default {
       windowHeight: 0,
       flagMenu: false,
       flagModal: false,
-      selectedLang: "kor"
+      selectedLang: "kor",
+      loginUser: auth.currentUser
     };
   },
   watch: {
     $route() {
-      console.log("route changed", this.$route);
-      if(this.$route.name == "index"){
+      if (this.$route.name == "index") {
         this.flagMenu = false;
         this.flagModal = false;
       }
@@ -81,6 +87,19 @@ export default {
     },
     closeMenu(e) {
       this.flagMenu = false;
+    },
+    sendVerification() {
+      auth.currentUser.sendEmailVerification().then(function() {
+        alert("인증 이메일이 전송됐습니다.\n");
+      });
+    },
+    async logout() {
+      try {
+        await this.$store.dispatch("logout");
+        $nuxt.$router.push("/");
+      } catch (e) {
+        // this.formError = e.message
+      }
     }
   }
 };
@@ -118,6 +137,9 @@ a {
   &:active {
     color: inherit;
   }
+}
+.bold{
+  font-weight: 1000;
 }
 .button {
   cursor: pointer;
@@ -219,9 +241,6 @@ $background-color: #1e1e1e;
       }
       .btn-auth {
         float: right;
-        span {
-          cursor: pointer;
-        }
       }
     }
     .main-section {
